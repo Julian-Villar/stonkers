@@ -1,8 +1,9 @@
-import urllib
+#!/usr/bin/env python
+import urllib.request
 import json
 import pandas as pd
 
-stock_input = 'APL'
+stock_input = 'AMD'
 nasdaq_load = urllib.request.urlopen("https://api.nasdaq.com/api/quote/{}/chart?assetclass=stocks".format(stock_input))
 data = json.load(nasdaq_load)
 
@@ -16,6 +17,13 @@ stock_timestamp = pd.DataFrame.from_dict(data['chart'])
 stock_timestamp['ds'] = pd.to_datetime(stock_timestamp['x'],unit='ms')
 stock_timestamp = stock_timestamp[['ds','y']]
 
+
+# INSERT INTO stockdump(datetime,price,stock_name) VALUES ('2020-04-21 16:59:40',53.20,'AMD')
+
+def data2sql(data,stock):
+    for i in range(len(data)):
+        print('INSERT INTO stockdump(datetime,price,stock_name) VALUES (\'',data['ds'][i],'\',',data['y'][i],',\'',stock,'\');',sep='')
+data2sql(stock_timestamp,stock_input)
 # Data structure as follows
 # {'symbol': 'AMD',
 #  'company': 'Advanced Micro Devices, Inc. Common Stock',
