@@ -6,7 +6,8 @@ stock_input = 'APL'
 nasdaq_load = urllib.request.urlopen("https://api.nasdaq.com/api/quote/{}/chart?assetclass=stocks".format(stock_input))
 data = json.load(nasdaq_load)
 
-# High level look (without chart) data = data['data']
+# High level look (without chart)
+data = data['data']
 
 summary_info = pd.DataFrame.from_dict(data)
 summary_info = summary_info.drop('chart',axis=1)
