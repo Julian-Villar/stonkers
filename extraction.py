@@ -2,8 +2,15 @@
 import urllib.request
 import json
 import pandas as pd
+import argparse
 
-stock_input = 'AMD'
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('stock', type=str,help='NASDAQ Stock you want to extract')
+
+args = parser.parse_args()
+print(args.stock)
+
+stock_input = args.stock
 nasdaq_load = urllib.request.urlopen("https://api.nasdaq.com/api/quote/{}/chart?assetclass=stocks".format(stock_input))
 data = json.load(nasdaq_load)
 
