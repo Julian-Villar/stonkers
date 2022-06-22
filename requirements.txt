@@ -1,6 +1,6 @@
 pandas==1.0.1
 pandas_datareader==0.8.1
-numpy==1.18.1
+numpy==1.22.0
 fbprophet==0.6
 plotly==4.5.2
 streamlit==0.71.0
